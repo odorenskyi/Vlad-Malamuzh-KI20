@@ -43,7 +43,7 @@ void userInput()
 
 void tof_output()
 {
-    if (a + 1 > abs(b - 2))
+    if (a + 5 >=b))
     {
         wcout << L"True!" << endl;
     }
