@@ -10,7 +10,7 @@
 #include <ctime>
 #include <bitset>
 #include <cmath>
-
+#include <locale>
 #include "modulesmalamuzh.h"
 
 using namespace std;
@@ -29,7 +29,7 @@ int checkXYZ(int num){
 
 int main()
 {
-    _wsetlocale(LC_ALL, L"uk_UA.UTF-8");
+    setlocale(LC_ALL,"uk_UA.UTF-8");
     _setmode(_fileno(stdout), _O_U8TEXT);
     _setmode(_fileno(stdin), _O_U8TEXT);
 
@@ -77,15 +77,7 @@ int main()
     wcout << L"Введiть до файлу (через блокнот) слово, пiсля введення напишiть в консоль ключ \"D\"(отримання доступу до функцiй): ";
     wcin.getline(Key, 2);
 
-    inputFile.open(ch_inputName);
-    inputFile.imbue(locale(locale(), new codecvt_utf8_utf16<wchar_t>));
-    inputFile.getline(inputWord, 50);
-    inputFile.close();
 
-    inputFileWrite.open(ch_inputName, ios_base::trunc);
-    inputFileWrite.imbue(locale(locale(), new codecvt_utf8_utf16<wchar_t>));
-    inputFileWrite << inputWord;
-    inputFileWrite.close();
 
     while(!wcsstr(D, Key) && !wcsstr(F, Key)){
         wcout << L"Ви ввели невiрний ключ, спробуйте ще раз: ";
@@ -122,6 +114,7 @@ int main()
             {
                 case 'Z':
                  f_searchword(ch_inputName, outputName, &vowelNum);
+                 first_funct();
                  wcout << L"Введiть назву вхідного файлу з розширенням txt ";
                     wcout << L"Робота с файлами була завершена, результати виконання f_searchword можна побачити у вихiдному файлi." << endl;
                     break;
