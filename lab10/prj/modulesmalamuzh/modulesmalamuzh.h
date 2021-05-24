@@ -178,12 +178,23 @@ int input_time(char *exist_file)
     {
        stream.imbue(locale(locale(), new codecvt_utf8_utf16<wchar_t>));
        getline(stream, number);
-       stream.close();
+       int i=0, count=0;
+           string s;
+           cout << "String:\n";
+           getline(cin, s);
+
+           while (number[i])
+               {
+               if (isdigit(number[i])) count++;
+               i++;
+               }
+
+
 
        output.open(exist_file);
        output.imbue(locale(locale(), new codecvt_utf8_utf16<wchar_t>));
 
-       output << number << L"\nКількість цифр у файлі: " << number.length() << L"\nДата:" << ctime(&cur_date);
+       output << count << L"\nКількість цифр у файлі: " << L"\nДата:" << ctime(&cur_date);
        output.close();
     }
     else
@@ -216,7 +227,7 @@ int f_resofscalc(char *outputName, int x, int y, int z, float *S, int *binNum){
     _setmode(_fileno(stdin), _O_U8TEXT);
 
     wofstream outputFile;
-    int bitSize = 0;
+
 
     outputFile.open(outputName, ios::app);
     outputFile.imbue(locale(locale(), new codecvt_utf8_utf16<wchar_t>));
@@ -250,14 +261,17 @@ int f_searchword(char *inputName, char *outputName, int *vowelNum){
     setlocale(LC_ALL,"uk_UA.UTF-8");
     _setmode(_fileno(stdout), _O_U8TEXT);
     _setmode(_fileno(stdin), _O_U8TEXT);
-
     wifstream inputFile;
     wofstream outputFile;
+     wstring number;
+     wifstream stream;
+     wofstream output;
     wchar_t wstr[50] = L"";
     *vowelNum = 0;
     int vows = 0;
     wchar_t vowelSounds[] = L"АаЕеЄєиІіЇїУуЮюЯяОо";
     wchar_t words[250] = {L"Модуль,модульчик,студент,студентка,програміст,програмістка."};
+
 
     inputFile.open(inputName);
     inputFile.imbue(locale(locale(), new codecvt_utf8_utf16<wchar_t>));
@@ -282,10 +296,14 @@ int f_searchword(char *inputName, char *outputName, int *vowelNum){
     int testRes = 0;
     if(wcsstr(words, wstr)){
            outputFile << L"Cлово " << wstr << L" присутнє в задачі." << endl;
+
+           outputFile << number << L"\nКількість символів містяться в вхідному файлі ";
+
            testRes = 1;
        }
        else{
            outputFile << L"Cлово " << wstr << L" відсутнє в задачі" << endl;
+           outputFile << number << L"\nКількість символів містяться в вхідному файлі ";
            testRes = 2;
        }
 
